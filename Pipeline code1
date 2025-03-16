@@ -1,0 +1,24 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage('Clone GIT Repo') {
+            steps {
+                echo 'Cloning  GITHUB Repository'
+				git branch: 'main', url: 'https://github.com/pradeepsampathi/mindcircuit15d.git'
+            }
+        }
+        stage('Build Maven Artifact') {
+            steps {
+                echo 'Building Maven aritifact'
+				sh 'mvn clean install'
+            }
+        }
+		stage('Deploy to tomcat') {
+            steps {
+                echo 'Deploy artifact to tomcat server'
+				deploy adapters: [tomcat9(credentialsId: 'tomcatID', path: '', url: 'http://3.86.195.92:8081/')], contextPath: 'mc-facebook', war: '**/*.war'
+            }
+        }	
+    }
+}
