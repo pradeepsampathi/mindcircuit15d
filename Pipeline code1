@@ -17,7 +17,7 @@ pipeline {
 		stage('Deploy to tomcat') {
             steps {
                 echo 'Deploy artifact to tomcat server'
-				deploy adapters: [tomcat9(credentialsId: 'tomcatID', path: '', url: 'http://3.86.195.92:8081/')], contextPath: 'mc-facebook', war: '**/*.war'
+				deploy adapters: [tomcat9(credentialsId: 'tomcatID', path: '', url: 'http://ec2-34-229-173-227.compute-1.amazonaws.com:8080/')], contextPath: 'MC-Facebook', war: '**/*.war'
             }
         }	
     }
